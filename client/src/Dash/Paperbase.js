@@ -8,6 +8,10 @@ import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import ChatBox from '../components/ChatBox/ChatBox';
+import {socketclient} from '../lib/Socket';
+//import ChatBox from '../components/ChatBox/chat';
+import {socketContext} from '../context/socketcontext';
 
 function Copyright() {
   return (
@@ -189,7 +193,9 @@ function Paperbase(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.main}>
-            <Content />
+          
+            <ChatBox ></ChatBox>
+          
           </main>
           <footer className={classes.footer}>
             <Copyright />

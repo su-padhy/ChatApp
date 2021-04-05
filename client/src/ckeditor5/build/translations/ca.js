@@ -1,0 +1,1 @@
+(function(o){const a=o["ca"]=o["ca"]||{};a.dictionary=Object.assign(a.dictionary||{},{"Block quote":"Cita de bloc",Bold:"Negreta","Cannot upload file:":"No es pot pujar l'arxiu:",Code:"Codi",Italic:"Cursiva",Underline:"Subrallat"});a.getPluralForm=function(o){return o!=1}})(window.CKEDITOR_TRANSLATIONS||(window.CKEDITOR_TRANSLATIONS={}));

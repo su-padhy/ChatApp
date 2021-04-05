@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -18,6 +18,7 @@ import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponen
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
+import axios from 'axios';
 
 const categories = [
   {
@@ -84,6 +85,25 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
+  const [channelsstate, setChannels] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/channels')
+    .then(res => {
+      const channelsdata = JSON.parse(JSON.stringify(res.data));
+     
+      //const challenitems = channelsdata.split(',');  
+
+      setChannels(channelsdata);  
+      //console.log(channelsdata);
+      
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }, []);
+
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -116,15 +136,16 @@ function Navigator(props) {
             </ListItem>
         
         </React.Fragment>
-
-        {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
-            
-            {children.map(({ id: childId, icon, active }) => (
+        <React.Fragment>
+       
+        <div>
+        
+         
+         {channelsstate.map((channel) => (
               <ListItem
-                key={childId}
+                key={channel._id}
                 button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
+                className={clsx(classes.item && classes.itemActiveItem)}
               >
                 
                 <ListItemText
@@ -132,14 +153,17 @@ function Navigator(props) {
                     primary: classes.itemPrimary,
                   }}
                 >
-                  #{childId}
+                  #{channel.title}
                 </ListItemText>
               </ListItem>
             ))}
 
-            <Divider className={classes.divider} />
-          </React.Fragment>
-        ))}
+
+         </div>
+         
+        
+        </React.Fragment>
+        
       </List>
     </Drawer>
   );

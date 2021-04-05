@@ -19,6 +19,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
+import {userContext} from '../context/usercontext';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -130,9 +131,17 @@ function Header(props) {
               </Tooltip>
             </Grid>
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+            <userContext.Consumer>
+      {({user, logoutUser}) => {
+        return (
+          <IconButton color="inherit" className={classes.iconButtonAvatar}>
+                <Avatar src={user.photo} alt="My Avatar" />
               </IconButton>
+        );
+      }}
+    </userContext.Consumer>
+
+              
             </Grid>
           </Grid>
         </Toolbar>

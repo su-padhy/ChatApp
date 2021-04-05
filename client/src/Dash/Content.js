@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { render } from "react-dom";
+import socketIOClient from "socket.io-client";
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,6 +19,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+
 
 
 const styles = (theme) => ({
@@ -56,21 +59,31 @@ const styles = (theme) => ({
    
 });
 
-function Content(props) {
-  const { classes } = props;
-
-  return (
-    <Paper className={classes.paper}>
-        <div className={classes.contentHeader}>
+class Content extends React.Component
+{
+  
+  constructor(props) {
+    super();
+    this.state ={chatinput:"",
+    chatHistory:[]};
+    //socket : socketIOClient(ENDPOINT)
+    
+  }
+render()
+{ 
+  
+  return(
+<Paper className={styles.paper}>
+        <div className={styles.contentHeader}>
           Subhasis Padhy
       </div>
 
-        <div className={classes.contentWrapper}>
+        <div className={styles.contentWrapper}>
           <List>
 
-<ListItem className={classes.message}>
+<ListItem className={styles.message}>
 
-<Card className={classes.message} variant="outlined">
+<Card className={styles.message} variant="outlined">
       <CardContent>
         
        
@@ -86,7 +99,7 @@ function Content(props) {
 </ListItem>
 <ListItem>
 
-<Card className={classes.message} variant="outlined">
+<Card className={styles.message} variant="outlined">
       <CardContent>
         
        
@@ -102,7 +115,7 @@ function Content(props) {
 
           </List>
       </div>
-      <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+      <AppBar className={styles.searchBar} position="static" color="default" elevation={0}>
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
             
@@ -112,7 +125,7 @@ function Content(props) {
                 placeholder="type a message"
                 InputProps={{
                   disableUnderline: true,
-                  className: classes.searchInput,
+                  className: styles.searchInput,
                 }}
               />
             </Grid>
@@ -126,11 +139,15 @@ function Content(props) {
       </AppBar>
       
     </Paper>
-  );
+
+    );
 }
 
-Content.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
+}
+
+
+
+
 
 export default withStyles(styles)(Content);
